@@ -17,6 +17,12 @@ while len(guessed_state) < 50:
     states = data["state"]
 
     if answer_state == "Exit":
+        missing_states = []
+        for state in states:
+            if state not in guessed_state:
+                missing_states.append(state)
+        new_data = pandas.DataFrame(missing_states)
+        new_data.to_csv("states_to_learn.csv")
         break
 
     for state in states:
@@ -29,6 +35,7 @@ while len(guessed_state) < 50:
             t.goto(float(state_data.x.iloc[0]), float(state_data.y.iloc[0]))
             t.pendown()
             t.write(answer_state)
+
 
 
 
